@@ -16,3 +16,29 @@ resource "aws_subnet" "tutorial" {
     Name = "tutorial"
   }
 }
+
+resource "aws_internet_gateway" "tutorial" {
+  vpc_id = aws_vpc.tutorial.id
+
+  tags = {
+    Name = "tutorial"
+  }
+}
+
+resource "aws_route_table" "tutorial" {
+  vpc_id = aws_vpc.tutorial.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.tutorial.id
+  }
+
+  tags = {
+    Name = "tutorial"
+  }
+}
+
+resource "aws_route_table_association" "tutorial" {
+  subnet_id      = aws_subnet.tutorial.id
+  route_table_id = aws_route_table.tutorial.id
+}
