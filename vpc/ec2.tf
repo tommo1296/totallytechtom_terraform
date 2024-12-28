@@ -30,8 +30,6 @@ resource "aws_instance" "tutorial" {
 
   vpc_security_group_ids = [aws_security_group.tutorial.id]
 
-  key_name = "tutorial"
-
   tags = {
     Name = "tutorial"
   }
