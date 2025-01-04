@@ -4,7 +4,8 @@ resource "aws_vpc" "tutorial" {
   enable_dns_hostnames = true
 
   tags = {
-    Name = "tutorial"
+    Name        = var.name
+    Environment = var.environment
   }
 }
 
@@ -15,7 +16,8 @@ resource "aws_subnet" "tutorial" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name = "public-tutorial"
+    Name        = "public-${var.name}"
+    Environment = var.environment
   }
 }
 
@@ -23,7 +25,8 @@ resource "aws_internet_gateway" "tutorial" {
   vpc_id = aws_vpc.tutorial.id
 
   tags = {
-    Name = "tutorial"
+    Name        = var.name
+    Environment = var.environment
   }
 }
 
@@ -36,7 +39,8 @@ resource "aws_route_table" "tutorial" {
   }
 
   tags = {
-    Name = "public-tutorial"
+    Name        = "public-${var.name}"
+    Environment = var.environment
   }
 }
 
